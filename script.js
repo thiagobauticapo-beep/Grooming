@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (entry.target.classList.contains('stat-card')) {
                     const statNumber = entry.target.querySelector('.stat-number');
                     if (statNumber && !statNumber.classList.contains('counted')) {
-                        animateValue(statNumber, 0, parseInt(statNumber.getAttribute('data-target')), 2000);
+                        const targetVal = parseFloat(statNumber.getAttribute('data-target'));
+                        animateValue(statNumber, 0, targetVal, 2000);
                         statNumber.classList.add('counted');
                     }
                 }
@@ -117,14 +118,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Number Animation Function ---
     function animateValue(obj, start, end, duration) {
         let startTimestamp = null;
+        const decimals = parseInt(obj.getAttribute('data-decimals')) || 0;
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (end - start) + start);
+            const value = progress * (end - start) + start;
+            obj.innerHTML = value.toFixed(decimals);
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             } else {
-                obj.innerHTML = end;
+                obj.innerHTML = end.toFixed(decimals);
             }
         };
         window.requestAnimationFrame(step);

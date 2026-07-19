@@ -588,6 +588,20 @@ header.scrolled .header-container {
     color: var(--text-light);
 }
 
+/* Form/Survey Section */
+.form-section {
+    background-color: var(--bg-white);
+}
+
+.form-container-box {
+    transition: var(--transition);
+}
+
+.form-container-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(108, 99, 255, 0.15) !important;
+}
+
 /* Contact */
 .contact-wrapper {
     display: flex;
